@@ -36,8 +36,8 @@ public class EvenOddBenchmark {
     }
 
     @Benchmark
-    public int[] testArrayList() {
-        return EvenOddAlSorter.sort(dataArray);
+    public List<Integer> testArrayList() {
+        return EvenOddAlSorter.sort(dataList);
     }
 
     @Benchmark
