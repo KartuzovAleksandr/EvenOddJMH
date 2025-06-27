@@ -1,6 +1,5 @@
 package top.academy;
-
-import java.util.*;
+import java.util.Arrays;
 
 public class EvenOddArraySorter {
 

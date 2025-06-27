@@ -21,11 +21,10 @@ public class EvenOddAlSorter {
         // Сортировка нечетных по убыванию
         oddNumbers.sort(Comparator.reverseOrder());
 
-        // Очистка исходного списка и добавление отсортированных чисел
-        numbers.clear();
-        numbers.addAll(evenNumbers);
-        numbers.addAll(oddNumbers);
+        // добавление отсортированных чисел
+        List<Integer> Numbers = new ArrayList<>(evenNumbers);
+        Numbers.addAll(evenNumbers);
 
-        return numbers;
+        return Numbers;
     }
 }

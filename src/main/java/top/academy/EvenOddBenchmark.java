@@ -31,6 +31,11 @@ public class EvenOddBenchmark {
     }
 
     @Benchmark
+    public int[] testArrayQuick() {
+        return EvenOddArrayQuick.sort(dataArray);
+    }
+
+    @Benchmark
     public int[] testArray() {
         return EvenOddArraySorter.sort(dataArray);
     }
