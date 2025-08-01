@@ -4,11 +4,11 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.stream.*;
 
-public class EvenOddFJSorter extends RecursiveTask<List<Integer>> {
+public class EOFJ extends RecursiveTask<List<Integer>> {
 
     private final List<Integer> data;
 
-    public EvenOddFJSorter(List<Integer> data) {
+    public EOFJ(List<Integer> data) {
         this.data = data;
     }
 
@@ -29,8 +29,8 @@ public class EvenOddFJSorter extends RecursiveTask<List<Integer>> {
         }
 
         int mid = data.size() / 2;
-        EvenOddFJSorter left = new EvenOddFJSorter(data.subList(0, mid));
-        EvenOddFJSorter right = new EvenOddFJSorter(data.subList(mid, data.size()));
+        EOFJ left = new EOFJ(data.subList(0, mid));
+        EOFJ right = new EOFJ(data.subList(mid, data.size()));
 
         left.fork();
         right.fork();
@@ -43,6 +43,6 @@ public class EvenOddFJSorter extends RecursiveTask<List<Integer>> {
 
     public static List<Integer> sort(List<Integer> data) {
         ForkJoinPool pool = new ForkJoinPool();
-        return pool.invoke(new EvenOddFJSorter(data));
+        return pool.invoke(new EOFJ(data));
     }
 }

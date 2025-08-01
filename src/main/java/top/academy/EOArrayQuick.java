@@ -2,7 +2,7 @@ package top.academy;
 
 import java.util.Arrays;
 
-public class EvenOddArrayQuick {
+public class EOArrayQuick {
 
     public static int[] sort(int[] arr) {
         int n = arr.length;

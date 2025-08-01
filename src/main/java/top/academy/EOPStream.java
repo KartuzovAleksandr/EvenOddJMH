@@ -3,15 +3,15 @@ package top.academy;
 import java.util.*;
 import java.util.stream.*;
 
-public class EvenOddStreamSorter {
+public class EOPStream {
 
     public static List<Integer> sort(List<Integer> numbers) {
-        List<Integer> evens = numbers.stream()
+        List<Integer> evens = numbers.parallelStream()
                 .filter(x -> x % 2 == 0)
                 .sorted()
                 .toList();
 
-        List<Integer> odds = numbers.stream()
+        List<Integer> odds = numbers.parallelStream()
                 .filter(x -> x % 2 != 0)
                 .sorted(Collections.reverseOrder())
                 .toList();

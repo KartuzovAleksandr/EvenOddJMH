@@ -1,7 +1,7 @@
 package top.academy;
 import java.util.Arrays;
 
-public class EvenOddArraySorter {
+public class EOArraySort {
 
     public static int[] sort(int[] arr) {
         int n = arr.length;

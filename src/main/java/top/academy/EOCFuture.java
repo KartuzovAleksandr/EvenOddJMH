@@ -4,10 +4,10 @@ import java.util.*;
 import java.util.concurrent.*;
 import java.util.stream.*;
 
-public class EvenOddCFutureSorter {
+public class EOCFuture {
 
     public static List<Integer> sort(List<Integer> numbers) throws ExecutionException, InterruptedException {
-        ExecutorService executor = Executors.newFixedThreadPool(2);
+        ExecutorService executor = Executors.newFixedThreadPool(8);
 
         CompletableFuture<List<Integer>> evenFuture = CompletableFuture.supplyAsync(() -> 
             numbers.stream()

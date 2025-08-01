@@ -13,8 +13,8 @@ import java.util.concurrent.TimeUnit;
 @OutputTimeUnit(TimeUnit.MILLISECONDS)
 @State(Scope.Thread)
 @Fork(value = 1, jvmArgs = {"-Xms4G", "-Xmx4G"})
-@Warmup(iterations = 3)
-@Measurement(iterations = 5)
+@Warmup(iterations = 1)
+@Measurement(iterations = 3)
 public class EvenOddBenchmark {
 
     @Param({"100000", "1000000"})
@@ -26,43 +26,41 @@ public class EvenOddBenchmark {
     @Setup(Level.Iteration)
     public void setup() {
         Random r = new Random();
-        dataList = r.ints(size, 0, 101).boxed().toList();
-        dataArray = r.ints(size, 0, 101).toArray();
+        int max = 1000;
+        dataList = r.ints(size, 0, max).boxed().toList();
+        dataArray = r.ints(size, 0, max).toArray();
     }
 
     @Benchmark
-    public int[] testArrayQuick() {
-        return EvenOddArrayQuick.sort(dataArray);
+    public int[] arrayQuick() {
+        return EOArrayQuick.sort(dataArray);
     }
 
     @Benchmark
-    public int[] testArray() {
-        return EvenOddArraySorter.sort(dataArray);
+    public int[] arraySort() {
+        return EOArraySort.sort(dataArray);
     }
 
     @Benchmark
-    public List<Integer> testArrayList() {
-        return EvenOddAlSorter.sort(dataList);
+    public List<Integer> arrayList() {
+        return EOArrayList.sort(dataList);
     }
 
     @Benchmark
-    public List<Integer> testStream() {
-        return EvenOddStreamSorter.sort(dataList);
+    public List<Integer> stream() {
+        return EOStream.sort(dataList);
     }
 
     @Benchmark
-    public List<Integer> testParallelStream() {
-        return EvenOddPStreamSorter.sort(dataList);
+    public List<Integer> pStream() {
+        return EOPStream.sort(dataList);
     }
 
     @Benchmark
-    public List<Integer> testCompletableFuture() throws Exception {
-        return EvenOddCFutureSorter.sort(dataList);
-    }
-
+    public List<Integer> completableFuture() throws Exception { return EOCFuture.sort(dataList); }
     @Benchmark
-    public List<Integer> testForkJoin() {
-        return EvenOddFJSorter.sort(dataList);
+    public List<Integer> forkJoin() {
+        return EOFJ.sort(dataList);
     }
 
     public static void main(String[] args) throws RunnerException {

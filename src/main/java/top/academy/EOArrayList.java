@@ -5,7 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class EvenOddAlSorter {
+public class EOArrayList {
 
     public static List<Integer> sort(List<Integer> numbers) {
         // Создание списков для четных и нечетных чисел
