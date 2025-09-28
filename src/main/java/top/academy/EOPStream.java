@@ -7,12 +7,12 @@ public class EOPStream {
 
     public static List<Integer> sort(List<Integer> numbers) {
         List<Integer> evens = numbers.parallelStream()
-                .filter(x -> x % 2 == 0)
+                .filter(x -> (x & 1) == 0)
                 .sorted()
                 .toList();
 
         List<Integer> odds = numbers.parallelStream()
-                .filter(x -> x % 2 != 0)
+                .filter(x -> (x & 1) != 0)
                 .sorted(Collections.reverseOrder())
                 .toList();
 

@@ -17,7 +17,7 @@ import java.util.concurrent.TimeUnit;
 @Measurement(iterations = 3)
 public class EvenOddBenchmark {
 
-    @Param({"100000", "1000000"})
+    @Param({"1000000"})
     private int size;
 
     private List<Integer> dataList;
@@ -25,42 +25,48 @@ public class EvenOddBenchmark {
 
     @Setup(Level.Iteration)
     public void setup() {
-        Random r = new Random();
-        int max = 1000;
+        var r = new Random();
+        int max = 5000;
         dataList = r.ints(size, 0, max).boxed().toList();
-        dataArray = r.ints(size, 0, max).toArray();
+        // те же самые значения
+        dataArray = dataList.stream().mapToInt(Integer::intValue).toArray();
+        // или сгенерировать заново проще синтаксис
+        // dataArray = r.ints(size, 0, max).toArray();
     }
 
     @Benchmark
-    public int[] arrayQuick() {
-        return EOArrayQuick.sort(dataArray);
-    }
-
+    public int[] arrayQuick() { return EOArrayQuick.sort(dataArray); }
     @Benchmark
-    public int[] arraySort() {
-        return EOArraySort.sort(dataArray);
-    }
-
+    public int[] arrayOptimized() { return EOArrayOptimized.sort(dataArray); }
     @Benchmark
-    public List<Integer> arrayList() {
-        return EOArrayList.sort(dataList);
+    public int[] arrayParallelSort() {
+        return EOArrayParallelSort.sort(dataArray);
     }
-
+    @Benchmark
+    public List<Integer> list() {
+        return EOList.sort(dataList);
+    }
     @Benchmark
     public List<Integer> stream() {
         return EOStream.sort(dataList);
     }
-
     @Benchmark
     public List<Integer> pStream() {
         return EOPStream.sort(dataList);
     }
-
     @Benchmark
-    public List<Integer> completableFuture() throws Exception { return EOCFuture.sort(dataList); }
+    public List<Integer> completableFuture() throws Exception { return EOCompletableFuture.sort(dataList); }
     @Benchmark
-    public List<Integer> forkJoin() {
-        return EOFJ.sort(dataList);
+    public List<Integer> forkRecursiveTask() {
+        return EOForkRecursiveTask.sort(dataList);
+    }
+    @Benchmark
+    public List<Integer> forkJoinPool() {
+        return EOForkJoinPool.sort(dataList);
+    }
+    @Benchmark
+    public List<Integer> structuredTaskScope() throws Exception {
+        return EOStructuredConcurrency.sort(dataList);
     }
 
     public static void main(String[] args) throws RunnerException {
