@@ -2,6 +2,7 @@
   <configuration default="false" name="JMH" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="top.academy.EvenOddBenchmark" />
     <module name="evenodd-benchmark" />
+    <option name="PROGRAM_PARAMETERS" value="-jvmArgs --enable-preview" />
     <option name="VM_PARAMETERS" value="--enable-preview" />
     <method v="2">
       <option name="Make" enabled="true" />
